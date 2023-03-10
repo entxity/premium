@@ -175,39 +175,7 @@ return(function(Window)
 
 	local Section = Tab:CreateSection("Aimbot")
 	
-		Tab:CreateToggle({
-		Name = "Fly | E",
-		CurrentValue = false,
-		Flag = "Fly | E",
-		Callback = function(x)
-			getgenv()["Fly | E"] = x
-			if x == false then
-				for i,v in next, Nav do
-					v = false
-				end
-				Root.Anchored = false
-			end
-		end
-	})
-	
-	local Tab = Window:CreateTab("Games Tab", 11607938487)
 
-	local Section = Tab:CreateSection("Games")
-	
-		Tab:CreateToggle({
-		Name = "Fly | E",
-		CurrentValue = false,
-		Flag = "Fly | E",
-		Callback = function(x)
-			getgenv()["Fly | E"] = x
-			if x == false then
-				for i,v in next, Nav do
-					v = false
-				end
-				Root.Anchored = false
-			end
-		end
-	})
 
 	local Tab = Window:CreateTab("Information Tab", 11607938487)
 
