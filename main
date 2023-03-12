@@ -1,8 +1,36 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
+local Window = Rayfield:CreateWindow({
+	Name = "Title",
+	LoadingTitle = "Loading Title",
+	LoadingSubtitle = "Loading Subtitle",
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = "Soggyware",
+		FileName = "Game"
+	},
+	Discord = {
+		Enabled = true,
+		Invite = "bBZxdAhS9J",
+		RememberJoins = true
+	}
+})
+
+loadstring(game:HttpGet("https://soggyhubv2.vercel.app/Libs/RayfieldTabs.lua"))()(Window) 
+
+
+--THE CODE
+
 return(function(Window)
 	local Tab = Window:CreateTab("Player Tab", 11606717205)
 	local Section = Tab:CreateSection("Player")
 	local WalkSpeed = 0
 	local JumpPower = 0
+	local Nav = {}
+local Root = game.Players.LocalPlayer.Character.HumanoidRootPart
+local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+
 
 	Tab:CreateSlider({
 		Name = "Walk Speed",
@@ -92,6 +120,15 @@ return(function(Window)
 		end,
 	})
 
+Tab:CreateToggle({
+    Name = "Noclip",
+    CurrentValue = false,
+    Flag = "Noclip",
+    Callback = function(x)
+        noclip = x
+    end
+})
+
 	game:GetService("UserInputService").InputBegan:Connect(function(x)
 		if not getgenv().InfiniteJump then return end
 		if x.KeyCode == Enum.KeyCode.Space then
@@ -110,6 +147,31 @@ return(function(Window)
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = JumpPower
 		task.wait(0.1)
 	end)
+
+	game:GetService('RunService').Stepped:connect(function()
+    if noclip then
+        plr.Character.Humanoid:ChangeState(11)
+        Root.Anchored = true
+        for i,v in pairs(Nav) do
+            if v then
+                i.Anchored = true
+            end
+        end
+    else
+        Root.Anchored = false
+        for i,v in pairs(Nav) do
+            if v then
+                i.Anchored = false
+            end
+        end
+    end
+end)
+
+mouse.KeyDown:connect(function(key)
+    if key == "e" then
+        noclip = not noclip
+    end
+end)
 
 	local Tab = Window:CreateTab("ESP Tab", 11606709435)
 
@@ -170,12 +232,6 @@ return(function(Window)
 			ESP.TeamColor = x
 		end
 	})
-	
-	local Tab = Window:CreateTab("Aimbot Tab", 11607938487)
-
-	local Section = Tab:CreateSection("Aimbot")
-	
-
 
 	local Tab = Window:CreateTab("Information Tab", 11607938487)
 
